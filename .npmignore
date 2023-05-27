@@ -1,0 +1,8 @@
+# Arquivos e pastas a serem ignorados
+node_modules/
+dist/
+logs/
+
+# Arquivos específicos a serem ignorados
+debug.log
+config.js
