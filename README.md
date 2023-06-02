@@ -51,4 +51,6 @@ const App = () => {
 export default App;
 ```
 
-## Feel free to contribute
+## Feel free to contribute: https://github.com/arnaldobatista/react-native-fast-api
+
+## Donate Paypall: arnaldo.carpi@icloud.com
