@@ -1,6 +1,6 @@
 {
   "name": "react-native-fast-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A speed test using Fast.com for react native",
   "main": "index.js",
   "scripts": {
