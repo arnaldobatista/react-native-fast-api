@@ -10,7 +10,7 @@ class ApiSpeed {
       return urls;
     } catch (error) {
       console.error("Erro ao obter URLs do teste de velocidade", error);
-      return { error };
+      throw { error };
     }
   }
 
@@ -20,7 +20,7 @@ class ApiSpeed {
       return response.data;
     } catch (error) {
       console.error("Erro ao baixar o arquivo", error);
-      return { error };
+      throw { error };
     }
   }
 
@@ -49,7 +49,7 @@ class ApiSpeed {
       return formattedSpeed;
     } catch (error) {
       console.error("Erro ao calcular a velocidade de download", error);
-      return { error };
+      throw { error };
     }
   }
 }
