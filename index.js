@@ -1,34 +1,38 @@
 import axios from "axios";
+import RNFetchBlob from "rn-fetch-blob";
 
 class ApiSpeed {
-  static async getTestUrls() {
+  static async getTestUrls(urlCount = 5) {
     try {
       const response = await axios.get(
-        "https://api.fast.com/netflix/speedtest/v2?https=true&token=YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm&urlCount=5"
+        `https://api.fast.com/netflix/speedtest/v2?https=true&token=YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm&urlCount=${urlCount}`
       );
       const urls = response.data.targets.map((target) => target.url);
       return urls;
     } catch (error) {
       console.error("Erro ao obter URLs do teste de velocidade", error);
-      throw { error };
+      throw error;
     }
   }
 
   static async downloadFile(url) {
     try {
-      const response = await axios.get(url, { responseType: "blob" });
-      return response.data;
+      const response = await RNFetchBlob.config({
+        fileCache: true,
+      }).fetch("GET", url);
+      const data = await response.blob();
+      return data;
     } catch (error) {
       console.error("Erro ao baixar o arquivo", error);
       throw { error };
     }
   }
 
-  static async calculateSpeed() {
-    const urls = await ApiSpeed.getTestUrls();
-    const startTime = new Date().getTime();
-
+  static async calculateSpeed(urlCount = 5) {
     try {
+      const urls = await ApiSpeed.getTestUrls(urlCount);
+      const startTime = new Date().getTime();
+
       const promises = urls.map((url) => ApiSpeed.downloadFile(url));
       const files = await Promise.all(promises);
 
@@ -49,7 +53,7 @@ class ApiSpeed {
       return formattedSpeed;
     } catch (error) {
       console.error("Erro ao calcular a velocidade de download", error);
-      throw { error };
+      throw error;
     }
   }
 }
