@@ -50,6 +50,11 @@ class ApiSpeed {
         formattedSpeed = [(downloadSpeed * 1000).toFixed(0), "Kbps"];
       }
 
+      const unlinkPromises = files.map((file) =>
+        RNFetchBlob.fs.unlink(file._ref)
+      );
+      await Promise.all(unlinkPromises);
+
       return formattedSpeed;
     } catch (error) {
       console.error("Erro ao calcular a velocidade de download", error);
